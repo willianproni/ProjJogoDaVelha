@@ -10,25 +10,23 @@ namespace ProjJogodaVelha
     {
         public char[,] Jogo { get; set; }
         public int Rodadas { get; set; }
-        public char Jogador1 { get; set; }
-        public char Jogador2 { get; set; }
-        public char Vez { get; set; }
+        public Jogador Jogador1 { get; set; }
+        public Jogador Jogador2 { get; set; }
+        public Jogador Vez { get; set; }
 
         public Game()
         {
             Jogo = null;
             Rodadas = 1;
-            Jogador1 = 'X';
-            Jogador2 = 'O';
-            Vez = Jogador1;
         }
 
         public void Start()
         {
             Jogo = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } }; //As casas
             Rodadas = 1;
+            CreatePlayers();
             Vez = Jogador1;
-            Imprimir_Jogo(); //Imprimi o jogo na tela
+            Imprimir_Jogo();
 
             do
             {
@@ -39,20 +37,33 @@ namespace ProjJogodaVelha
                 Escolha();
                 do
                 {
-                    Console.WriteLine($"\tRodada {Rodadas}, Vez do {Vez}\n");
+                    Console.WriteLine($"\tRodada {Rodadas}, Vez do {Vez.Nome}\n");
                     Console.Write("\tDigite a linha: ");
                     linha = int.Parse(Console.ReadLine());
                     Console.Write("\tDigite a Coluna: ");
                     coluna = int.Parse(Console.ReadLine());
                 } while (Jogo[linha, coluna] == 'X' || Jogo[linha, coluna] == 'O');
                 Rodadas++;
-                Jogo[linha, coluna] = Vez;
+                Jogo[linha, coluna] = Vez.Peca;
                 Imprimir_Jogo();
                 Situation();
                 MudarVez();
 
             } while (Rodadas != 10);
 
+        }
+
+        public void CreatePlayers()
+        {
+            Console.WriteLine("Digite o Nome do JOGADOR 1(X): ");
+            string nome1 = Console.ReadLine();
+            char pecax = 'X';
+            Jogador1 = new Jogador(nome1, pecax);
+
+            Console.WriteLine("Digite o Nome do JOGADOR 2(O): ");
+            string nome2 = Console.ReadLine();
+            char pecao = 'O';
+            Jogador2 = new Jogador(nome2, pecao);
         }
 
         public void MudarVez()
@@ -102,7 +113,7 @@ namespace ProjJogodaVelha
                 Jogo[0, 0] == 'O' && Jogo[0, 1] == 'O' && Jogo[0, 2] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
@@ -111,7 +122,7 @@ namespace ProjJogodaVelha
                      Jogo[1, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[1, 2] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
@@ -121,7 +132,7 @@ namespace ProjJogodaVelha
                      Jogo[2, 0] == 'O' && Jogo[2, 1] == 'O' && Jogo[2, 2] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
@@ -130,16 +141,16 @@ namespace ProjJogodaVelha
                      Jogo[0, 0] == 'O' && Jogo[1, 0] == 'O' && Jogo[2, 0] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
             }
-            else if (Jogo[1, 0] == 'X' && Jogo[1, 1] == 'X' && Jogo[1, 2] == 'X' ||
-                     Jogo[1, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[1, 2] == 'O')
+            else if (Jogo[0, 1] == 'X' && Jogo[1, 1] == 'X' && Jogo[2, 1] == 'X' ||
+                     Jogo[1, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 1] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
@@ -148,7 +159,7 @@ namespace ProjJogodaVelha
                      Jogo[2, 0] == 'O' && Jogo[2, 1] == 'O' && Jogo[2, 2] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
@@ -157,7 +168,7 @@ namespace ProjJogodaVelha
                      Jogo[0, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 2] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
@@ -166,7 +177,7 @@ namespace ProjJogodaVelha
                      Jogo[0, 2] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 0] == 'O')
             {
                 Console.Clear();
-                Console.WriteLine($"Fim de jogo vencedor {Vez}");
+                Console.WriteLine($"Fim de jogo vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
