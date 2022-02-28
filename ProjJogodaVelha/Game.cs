@@ -23,19 +23,26 @@ namespace ProjJogodaVelha
         public void Start()
         {
             Jogo = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
-            Rodadas = 1;
+
             CreatePlayers();
             Vez = Jogador1;
             Imprimir_Jogo();
             do
             {
+                int linha, coluna;
                 Escolha();
                 Console.WriteLine($"\tRodada {Rodadas}, Vez do Jogador {Vez.Nome} ({Vez.Peca})\n");
-                Console.Write("\tDigite a Linha:");
-                int linha = int.Parse(Console.ReadLine());
+                do
+                {
+                    Console.Write("\tDigite a Linha:");
+                    linha = int.Parse(Console.ReadLine());
+                } while (linha < 0 || linha > 3);
                 linha = linha - 1;
+                do
+                {
                 Console.Write("\tDigite a Coluna:");
-                int coluna = int.Parse(Console.ReadLine());
+                coluna = int.Parse(Console.ReadLine());
+                } while (coluna < 0 || coluna > 3);
                 coluna = coluna - 1;
                 if (Jogo[linha, coluna] == 'X' || Jogo[linha, coluna] == 'O')
                 {
@@ -61,7 +68,6 @@ namespace ProjJogodaVelha
                 MudarVez();
 
             } while (Rodadas != 10);
-
         }
 
         public void CreatePlayers()
@@ -295,7 +301,7 @@ namespace ProjJogodaVelha
                 Console.ReadKey();
                 Console.Clear();
             }
-            else if(Rodadas == 10)
+            else if (Rodadas == 10)
             {
                 Console.Clear();
                 Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Empate!!");
