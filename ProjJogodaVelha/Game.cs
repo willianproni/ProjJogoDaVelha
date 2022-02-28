@@ -22,7 +22,7 @@ namespace ProjJogodaVelha
 
         public void Start()
         {
-            Jogo = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } }; //As casas
+            Jogo = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
             Rodadas = 1;
             CreatePlayers();
             Vez = Jogador1;
@@ -56,7 +56,8 @@ namespace ProjJogodaVelha
                 Rodadas++;
                 Jogo[linha, coluna] = Vez.Peca;
                 Imprimir_Jogo();
-                Situation();
+                VeririficaAll();
+                //Situation();
                 MudarVez();
 
             } while (Rodadas != 10);
@@ -188,7 +189,122 @@ namespace ProjJogodaVelha
                 Console.Clear();
             }
         }
+        public void VerificaHorizontal()
+        {
+            int linha = 0;
+            for (int i = linha; i < 3; i++)
+            {
+                for (int c = 0; c <= 0; c++)
+                {
 
+                    if (Jogo[linha, c] == 'X')
+                    {
+                        if (Jogo[linha, c + 1] == 'X')
+                        {
+                            if (Jogo[linha, c + 2] == 'X')
+                            {
+                                Console.Clear();
+                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                                Console.WriteLine($"Vençedor {Vez.Nome}");
+                                Rodadas = 10;
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                        }
+                    }
+                    if (Jogo[linha, c] == 'O')
+                    {
+                        if (Jogo[linha, c + 1] == 'O')
+                        {
+                            if (Jogo[linha, c + 2] == 'O')
+                            {
+                                Console.Clear();
+                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                                Console.WriteLine($"\tVençedor {Vez.Nome}");
+                                Rodadas = 10;
+                                Console.ReadKey();
+                                Console.Clear();
 
+                            }
+                        }
+                    }
+                }
+                linha++;
+            }
+        }
+        public void VerificaVertical()
+        {
+            int coluna = 0;
+            for (int i = coluna; i < 3; i++)
+            {
+                for (int l = 0; l <= 0; l++)
+                {
+                    if (Jogo[l, coluna] == 'X')
+                    {
+                        if (Jogo[l + 1, coluna] == 'X')
+                        {
+                            if (Jogo[l + 2, coluna] == 'X')
+                            {
+                                Console.Clear();
+                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                                Console.WriteLine($"Vençedor {Vez.Nome}");
+                                Rodadas = 10;
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                        }
+                    }
+                    if (Jogo[l, coluna] == 'O')
+                    {
+                        if (Jogo[l + 1, coluna] == 'O')
+                        {
+                            if (Jogo[l + 2, coluna] == 'O')
+                            {
+                                Console.Clear();
+                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                                Console.WriteLine($"Vençedor {Vez.Nome}");
+                                Rodadas = 10;
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                        }
+                    }
+                }
+                coluna++;
+            }
+        }
+        public void VeririficaAll()
+        {
+            if (Jogo[0, 0] == 'X' && Jogo[1, 1] == 'X' && Jogo[2, 2] == 'X' ||
+                Jogo[0, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 2] == 'O')
+            {
+                Console.Clear();
+                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                Console.WriteLine($"Vençedor {Vez.Nome}");
+                Rodadas = 10;
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else if (Jogo[0, 2] == 'X' && Jogo[1, 1] == 'X' && Jogo[2, 0] == 'X' ||
+                     Jogo[0, 2] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 0] == 'O')
+            {
+                Console.Clear();
+                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                Console.WriteLine($"Vençedor {Vez.Nome}");
+                Rodadas = 10;
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else if(Rodadas == 10)
+            {
+                Console.Clear();
+                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Empate!!");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            VerificaHorizontal();
+            VerificaVertical();
+
+        }
     }
 }
