@@ -23,10 +23,9 @@ namespace ProjJogodaVelha
         public void Start()
         {
             Jogo = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
-
-            CreatePlayers();
             Vez = Jogador1;
             Rodadas = 1;
+            CreatePlayers();
             Imprimir_Jogo();
             do
             {
@@ -75,7 +74,6 @@ namespace ProjJogodaVelha
                 {
                     VeririficaAll();
                 }
-                //Situation();
                 MudarVez();
 
             } while (Rodadas != 10);
@@ -136,91 +134,6 @@ namespace ProjJogodaVelha
                               "\n7 = [3][1]" +
                               "\n8 = [3][2]" +
                               "\n9 = [3][3]\n");
-        }
-
-        public void Situation()
-        {
-
-            if (Jogo[0, 0] == 'X' && Jogo[0, 1] == 'X' && Jogo[0, 2] == 'X' ||
-                Jogo[0, 0] == 'O' && Jogo[0, 1] == 'O' && Jogo[0, 2] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Jogo[1, 0] == 'X' && Jogo[1, 1] == 'X' && Jogo[1, 2] == 'X' ||
-                     Jogo[1, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[1, 2] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-
-            }
-            else if (Jogo[2, 0] == 'X' && Jogo[2, 1] == 'X' && Jogo[2, 2] == 'X' ||
-                     Jogo[2, 0] == 'O' && Jogo[2, 1] == 'O' && Jogo[2, 2] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Jogo[0, 0] == 'X' && Jogo[1, 0] == 'X' && Jogo[2, 0] == 'X' ||
-                     Jogo[0, 0] == 'O' && Jogo[1, 0] == 'O' && Jogo[2, 0] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Jogo[0, 1] == 'X' && Jogo[1, 1] == 'X' && Jogo[2, 1] == 'X' ||
-                     Jogo[1, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 1] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Jogo[2, 0] == 'X' && Jogo[2, 1] == 'X' && Jogo[2, 2] == 'X' ||
-                     Jogo[2, 0] == 'O' && Jogo[2, 1] == 'O' && Jogo[2, 2] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Jogo[0, 0] == 'X' && Jogo[1, 1] == 'X' && Jogo[2, 2] == 'X' ||
-                     Jogo[0, 0] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 2] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Jogo[0, 2] == 'X' && Jogo[1, 1] == 'X' && Jogo[2, 0] == 'X' ||
-                     Jogo[0, 2] == 'O' && Jogo[1, 1] == 'O' && Jogo[2, 0] == 'O')
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Ganhador {Vez.Nome}");
-                Rodadas = 10;
-                Console.ReadKey();
-                Console.Clear();
-            }
-            else if (Rodadas == 10)
-            {
-                Console.Clear();
-                Console.WriteLine($"-_-_-_-_Fim de jogo vencedor_-_-_-_-_-\n\t Empate!!");
-                Console.ReadKey();
-                Console.Clear();
-            }
         }
 
         public void VerificaHorizontal()
