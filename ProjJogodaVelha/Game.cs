@@ -26,6 +26,7 @@ namespace ProjJogodaVelha
 
             CreatePlayers();
             Vez = Jogador1;
+            Rodadas = 1;
             Imprimir_Jogo();
             do
             {
@@ -36,13 +37,13 @@ namespace ProjJogodaVelha
                 {
                     Console.Write("\tDigite a Linha:");
                     linha = int.Parse(Console.ReadLine());
-                } while (linha < 0 || linha > 3);
+                } while (linha < 1 || linha > 3);
                 linha = linha - 1;
                 do
                 {
                     Console.Write("\tDigite a Coluna:");
                     coluna = int.Parse(Console.ReadLine());
-                } while (coluna < 0 || coluna > 3);
+                } while (coluna < 1 || coluna > 3);
                 coluna = coluna - 1;
                 if (VerificarSePosicaoEstaDisponivel(linha, coluna))
                 {
@@ -52,19 +53,28 @@ namespace ProjJogodaVelha
                         Imprimir_Jogo();
                         Escolha();
                         Console.WriteLine($"\tRodada {Rodadas}, Vez do Jogador {Vez.Nome}");
-                        Console.WriteLine("\tEscolha uma Casa Vazia!!\n");
-                        Console.Write("\tDigite a Linha:");
-                        linha = int.Parse(Console.ReadLine());
+                        Console.WriteLine("\tEssa casa não está Vazia | Escolha uma Casa Vazia!!\n");
+                        do
+                        {
+                            Console.Write("\tDigite a Linha:");
+                            linha = int.Parse(Console.ReadLine());
+                        } while (linha < 0 || linha > 3);
                         linha = linha - 1;
-                        Console.Write("\tDigite a Coluna:");
-                        coluna = int.Parse(Console.ReadLine());
+                        do
+                        {
+                            Console.Write("\tDigite a Coluna:");
+                            coluna = int.Parse(Console.ReadLine());
+                        } while (coluna < 0 || coluna > 3);
                         coluna = coluna - 1;
                     } while (VerificarSePosicaoEstaDisponivel(linha, coluna));
                 }
                 Rodadas++;
                 Jogo[linha, coluna] = Vez.Peca;
                 Imprimir_Jogo();
-                VeririficaAll();
+                if (Rodadas > 4)
+                {
+                    VeririficaAll();
+                }
                 //Situation();
                 MudarVez();
 
@@ -75,11 +85,11 @@ namespace ProjJogodaVelha
         {
             if (Jogo[linha, coluna] == 'X' || Jogo[linha, coluna] == 'O')
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 
@@ -89,18 +99,20 @@ namespace ProjJogodaVelha
             Console.WriteLine("-_-_-_-_-_Nomeando Jogadores_-_-_-_-_-_-\n");
             Console.Write("Digite o Nome do JOGADOR 1(X): ");
             string nome1 = Console.ReadLine();
-            char pecax = 'X';
-            Jogador1 = new Jogador(nome1, pecax);
+            char peca1 = 'X';
+            Jogador1 = new Jogador(nome1, peca1);
             Console.WriteLine();
             Console.Write("Digite o Nome do JOGADOR 2(O): ");
             string nome2 = Console.ReadLine();
-            char pecao = 'O';
-            Jogador2 = new Jogador(nome2, pecao);
+            char peca2 = 'O';
+            Jogador2 = new Jogador(nome2, peca2);
         }
+
         public void MudarVez()
         {
             Vez = Vez == Jogador1 ? Jogador2 : Jogador1;
         }
+
         public void Imprimir_Jogo()
         {
             Console.Clear();
@@ -111,6 +123,7 @@ namespace ProjJogodaVelha
                                $"\n\t  {Jogo[2, 0]}  |  {Jogo[2, 1]}  |  {Jogo[2, 2]}  \n");
 
         }
+
         public void Escolha()
         {
             Console.WriteLine("\t\n     L  C" +
@@ -124,6 +137,7 @@ namespace ProjJogodaVelha
                               "\n8 = [3][2]" +
                               "\n9 = [3][3]\n");
         }
+
         public void Situation()
         {
 
@@ -208,6 +222,7 @@ namespace ProjJogodaVelha
                 Console.Clear();
             }
         }
+
         public void VerificaHorizontal()
         {
             int linha = 0;
@@ -216,7 +231,6 @@ namespace ProjJogodaVelha
             {
                 for (int c = 0; c <= 0; c++)
                 {
-
                     if (Jogo[linha, c] == 'X')
                     {
                         if (Jogo[linha, c + 1] == 'X')
@@ -225,7 +239,7 @@ namespace ProjJogodaVelha
                             {
                                 Console.Clear();
                                 Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVençedor {Vez.Nome}");
+                                Console.WriteLine($"\tVencedor {Vez.Nome}");
                                 Rodadas = 10;
                                 Console.ReadKey();
                                 Console.Clear();
@@ -240,7 +254,7 @@ namespace ProjJogodaVelha
                             {
                                 Console.Clear();
                                 Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVençedor {Vez.Nome}");
+                                Console.WriteLine($"\tVencedor {Vez.Nome}");
                                 Rodadas = 10;
                                 Console.ReadKey();
                                 Console.Clear();
@@ -252,6 +266,7 @@ namespace ProjJogodaVelha
                 linha++;
             }
         }
+
         public void VerificaVertical()
         {
             int coluna = 0;
@@ -268,7 +283,7 @@ namespace ProjJogodaVelha
                             {
                                 Console.Clear();
                                 Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVençedor {Vez.Nome}");
+                                Console.WriteLine($"\tVencedor {Vez.Nome}");
                                 Rodadas = 10;
                                 Console.ReadKey();
                                 Console.Clear();
@@ -283,7 +298,7 @@ namespace ProjJogodaVelha
                             {
                                 Console.Clear();
                                 Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVençedor {Vez.Nome}");
+                                Console.WriteLine($"\tVencedor {Vez.Nome}");
                                 Rodadas = 10;
                                 Console.ReadKey();
                                 Console.Clear();
@@ -294,6 +309,7 @@ namespace ProjJogodaVelha
                 coluna++;
             }
         }
+
         public void VeririficaAll()
         {
 
@@ -302,7 +318,7 @@ namespace ProjJogodaVelha
             {
                 Console.Clear();
                 Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                Console.WriteLine($"Vençedor {Vez.Nome}");
+                Console.WriteLine($"Vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
@@ -312,7 +328,7 @@ namespace ProjJogodaVelha
             {
                 Console.Clear();
                 Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                Console.WriteLine($"Vençedor {Vez.Nome}");
+                Console.WriteLine($"Vencedor {Vez.Nome}");
                 Rodadas = 10;
                 Console.ReadKey();
                 Console.Clear();
