@@ -23,9 +23,9 @@ namespace ProjJogodaVelha
         public void Start()
         {
             Jogo = new char[3, 3] { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
-            Vez = Jogador1;
             Rodadas = 1;
             CreatePlayers();
+            Vez = Jogador1;
             Imprimir_Jogo();
             do
             {
@@ -74,6 +74,7 @@ namespace ProjJogodaVelha
                 {
                     VeririficaAll();
                 }
+                //Situation();
                 MudarVez();
 
             } while (Rodadas != 10);
@@ -115,7 +116,6 @@ namespace ProjJogodaVelha
         {
             Console.Clear();
             Console.WriteLine("-_-_-_-_Situação do Jogo_-_-_-_-_-\n");
-
             Console.WriteLine($"\t__{Jogo[0, 0]}__|__{Jogo[0, 1]}__|__{Jogo[0, 2]}__" +
                                $"\n\t__{Jogo[1, 0]}__|__{Jogo[1, 1]}__|__{Jogo[1, 2]}__" +
                                $"\n\t  {Jogo[2, 0]}  |  {Jogo[2, 1]}  |  {Jogo[2, 2]}  \n");
@@ -139,41 +139,29 @@ namespace ProjJogodaVelha
         public void VerificaHorizontal()
         {
             int linha = 0;
-
+            int coluna = 0;
             for (int i = linha; i < 3; i++)
             {
-                for (int c = 0; c <= 0; c++)
+                if (Jogo[linha, coluna].CompareTo(Jogo[linha, coluna + 1]) == 0 &&
+                    Jogo[linha, coluna + 1].CompareTo(Jogo[linha, coluna + 2]) == 0)
                 {
-                    if (Jogo[linha, c] == 'X')
+                    if (Jogo[linha, coluna] == 'X')
                     {
-                        if (Jogo[linha, c + 1] == 'X')
-                        {
-                            if (Jogo[linha, c + 2] == 'X')
-                            {
-                                Console.Clear();
-                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVencedor {Vez.Nome}");
-                                Rodadas = 10;
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-                        }
+                        Console.Clear();
+                        Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                        Console.WriteLine($"\tVencedor {Vez.Nome}");
+                        Rodadas = 10;
+                        Console.ReadKey();
+                        Console.Clear();
                     }
-                    if (Jogo[linha, c] == 'O')
+                    else
                     {
-                        if (Jogo[linha, c + 1] == 'O')
-                        {
-                            if (Jogo[linha, c + 2] == 'O')
-                            {
-                                Console.Clear();
-                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVencedor {Vez.Nome}");
-                                Rodadas = 10;
-                                Console.ReadKey();
-                                Console.Clear();
-
-                            }
-                        }
+                        Console.Clear();
+                        Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                        Console.WriteLine($"\tVencedor {Vez.Nome}");
+                        Rodadas = 10;
+                        Console.ReadKey();
+                        Console.Clear();
                     }
                 }
                 linha++;
@@ -183,43 +171,32 @@ namespace ProjJogodaVelha
         public void VerificaVertical()
         {
             int coluna = 0;
-
+            int linha = 0;
             for (int i = coluna; i < 3; i++)
             {
-                for (int l = 0; l <= 0; l++)
+                if (Jogo[linha, coluna].CompareTo(Jogo[linha + 1, coluna]) == 0 &&
+                    Jogo[linha + 1, coluna].CompareTo(Jogo[linha + 2, coluna]) == 0)
                 {
-                    if (Jogo[l, coluna] == 'X')
+                    if (Jogo[linha, coluna] == 'X')
                     {
-                        if (Jogo[l + 1, coluna] == 'X')
-                        {
-                            if (Jogo[l + 2, coluna] == 'X')
-                            {
-                                Console.Clear();
-                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVencedor {Vez.Nome}");
-                                Rodadas = 10;
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-                        }
+                        Console.Clear();
+                        Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                        Console.WriteLine($"\tVencedor {Vez.Nome}");
+                        Rodadas = 10;
+                        Console.ReadKey();
+                        Console.Clear();
                     }
-                    if (Jogo[l, coluna] == 'O')
+                    else
                     {
-                        if (Jogo[l + 1, coluna] == 'O')
-                        {
-                            if (Jogo[l + 2, coluna] == 'O')
-                            {
-                                Console.Clear();
-                                Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
-                                Console.WriteLine($"\tVencedor {Vez.Nome}");
-                                Rodadas = 10;
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-                        }
+                        Console.Clear();
+                        Console.WriteLine("-_-_-_-Resultado_-_-_-_-");
+                        Console.WriteLine($"\tVencedor {Vez.Nome}");
+                        Rodadas = 10;
+                        Console.ReadKey();
+                        Console.Clear();
                     }
+                    coluna++;
                 }
-                coluna++;
             }
         }
 
